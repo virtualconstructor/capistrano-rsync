@@ -41,6 +41,8 @@ task :rsync => %w[rsync:stage] do
     rsync << fetch(:rsync_stage) + "/"
     rsync << "-e \'ssh -p #{port}\'" if port
     rsync << "#{user}#{role.hostname}:#{rsync_cache.call || release_path}"
+    
+    puts "Synching with '#{rsync.join(" ")}'"
 # Have to run system console to parse the command, otherwise port-part is parsed incorrectly
     Kernel.system rsync.join(" ")
   end
