@@ -27,8 +27,8 @@ namespace :load do
   end
 end
 
-Rake::Task["deploy:check"].enhance ["rsync:hook_scm"] if Rake::Task["deploy:check"]
-Rake::Task["deploy:updating"].enhance ["rsync:hook_scm"] if Rake::Task["deploy:updating"]
+Rake::Task["deploy:check"].enhance ["rsync:hook_scm"] if Rake::Task.task_defined? "deploy:check"
+Rake::Task["deploy:updating"].enhance ["rsync:hook_scm"] if Rake::Task.task_defined? "deploy:updating"
 
 desc "Stage and rsync to the server (or its cache)."
 task :rsync => %w[rsync:stage] do
